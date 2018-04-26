@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.action.extension" value="do,action,"/>
+	
+	<package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="authentication" class="com.ygy.interceptor.AuthenticationInterceptor"/>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="authentication"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"/>
+		
+		<global-results>
+			<result name="input">/error.jsp</result>
+		</global-results>
+		
+		<action name="login" class="com.ygy.action.LoginAction">
+			<interceptor-ref name="defaultStack"/>
+			<result>/jsp/loginSuccess.jsp</result>
+		</action>
+		
+		<action name="dis_*">
+			<result >/jsp/{1}.jsp</result>
+		</action>
+		<action name="changePassword" class="com.ygy.action.ChangePassword"></action>
+		<action name="queryUserExist" class="com.ygy.action.QueryUserExist"></action>
+		<action name="generateCard" class="com.ygy.action.GenerateCard"></action>
+		<action name="updateCard" class="com.ygy.action.UpdateCard"></action>
+		<action name ="canLendBook" class = "com.ygy.action.CanLendBook" ></action>
+		<action name ="getBook" class = "com.ygy.action.GetBook"></action>
+	</package>
+
+</struts>
